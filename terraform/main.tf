@@ -187,3 +187,5 @@ resource "aws_instance" "web" {
     Name = "sm-tf-ec2"
   }
 }
+#https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html
+#https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-delete-cli.html
