@@ -140,6 +140,7 @@ resource "aws_iam_policy" "ec2_create_policy" {
         Action = [
           "ec2:CreateVpc",
           "ec2:DeleteVpc",
+          "ec2:ModifyVpcAttribute",
           "ec2:DescribeVpcs",
 
           "ec2:CreateSubnet",
