@@ -113,77 +113,77 @@ resource "aws_iam_role" "ec2_role" {
 ###############################
 # IAM Policy (EC2 + VPC Create)
 ###############################
+#resource "aws_iam_policy" "ec2_create_policy" {
+#  name        = "sm-ec2-create-policy"
+#  description = "Allow EC2 instance to create/manage EC2 resources including VPC, subnets, IGW, route t>
+
+#  policy = jsonencode({
+#    Version = "2012-10-17"
+#    Statement = [
+      # ---- EC2 Permissions ----
+#      {
+#        Effect = "Allow"
+#        Action = [
+#          "ec2:RunInstances",
+#          "ec2:TerminateInstances",
+#          "ec2:DescribeInstances",
+#          "ec2:CreateTags",
+#          "ec2:DescribeInstanceTypes",
+#          "ec2:DescribeImages"
+#        ]
+#        Resource = "*"
+#      },
+
+      # ---- VPC / Subnet / IGW / Route Table Permissions ----
+#      {
+#        Effect = "Allow"
+#        Action = [
+#          "ec2:CreateVpc",
+#          "ec2:DeleteVpc",
+#          "ec2:ModifyVpcAttribute",
+#          "ec2:DescribeVpcs",
+
+#          "ec2:CreateSubnet",
+#          "ec2:DeleteSubnet",
+#          "ec2:DescribeSubnets",
+
+#          "ec2:CreateInternetGateway",
+#          "ec2:AttachInternetGateway",
+#          "ec2:DetachInternetGateway",
+#          "ec2:DeleteInternetGateway",
+#          "ec2:DescribeInternetGateways",
+
+#          "ec2:CreateRouteTable",
+#          "ec2:DeleteRouteTable",
+#          "ec2:AssociateRouteTable",
+#          "ec2:DisassociateRouteTable",
+#          "ec2:DescribeRouteTables",
+
+#          "ec2:CreateRoute",
+#          "ec2:ReplaceRoute",
+#          "ec2:DeleteRoute"
+#        ]
+#        Resource = "*"
+#      }
+#    ]
+#  })
+#}
+
 resource "aws_iam_policy" "ec2_create_policy" {
   name        = "sm-ec2-create-policy"
-  description = "Allow EC2 instance to create/manage EC2 resources including VPC, subnets, IGW, route tables"
-
+  description = "Full EC2 access"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
-      # ---- EC2 Permissions ----
       {
         Effect = "Allow"
-        Action = [
-          "ec2:RunInstances",
-          "ec2:TerminateInstances",
-          "ec2:DescribeInstances",
-          "ec2:CreateTags",
-          "ec2:DescribeInstanceTypes",
-          "ec2:DescribeImages"
-        ]
-        Resource = "*"
-      },
-
-      # ---- VPC / Subnet / IGW / Route Table Permissions ----
-      {
-        Effect = "Allow"
-        Action = [
-          "ec2:CreateVpc",
-          "ec2:DeleteVpc",
-          "ec2:ModifyVpcAttribute",
-          "ec2:DescribeVpcs",
-
-          "ec2:CreateSubnet",
-          "ec2:DeleteSubnet",
-          "ec2:DescribeSubnets",
-
-          "ec2:CreateInternetGateway",
-          "ec2:AttachInternetGateway",
-          "ec2:DetachInternetGateway",
-          "ec2:DeleteInternetGateway",
-          "ec2:DescribeInternetGateways",
-
-          "ec2:CreateRouteTable",
-          "ec2:DeleteRouteTable",
-          "ec2:AssociateRouteTable",
-          "ec2:DisassociateRouteTable",
-          "ec2:DescribeRouteTables",
-
-          "ec2:CreateRoute",
-          "ec2:ReplaceRoute",
-          "ec2:DeleteRoute"
-        ]
+        Action = "ec2:*"
         Resource = "*"
       }
     ]
   })
 }
 
-#resource "aws_iam_policy" "ec2_create_policy" {
-#  name        = "sm-ec2-create-policy"
-#  description = "Full EC2 access"
-
-#  policy = jsonencode({
-#    Version = "2012-10-17"
-#    Statement = [
-#      {
-#        Effect = "Allow"
-#        Action = "ec2:*"
-#        Resource = "*"
-#      }
-#    ]
-#  })
-#}
 ###############################
 # Attach Policy to Role
 ###############################
