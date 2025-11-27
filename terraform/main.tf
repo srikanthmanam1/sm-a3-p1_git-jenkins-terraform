@@ -169,8 +169,8 @@ resource "aws_iam_policy" "ec2_create_policy" {
   })
 }
 
-#resource "aws_iam_policy" "ec2_full_access" {
-#  name        = "ec2-full-access-policy"
+#resource "aws_iam_policy" "ec2_create_policy" {
+#  name        = "sm-ec2-create-policy"
 #  description = "Full EC2 access"
 
 #  policy = jsonencode({
