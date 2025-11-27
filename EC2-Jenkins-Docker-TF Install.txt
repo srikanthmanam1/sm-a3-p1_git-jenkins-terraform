@@ -1,3 +1,7 @@
+# Creates EC2 instance with new VPC, Subnet, Route Table, Internet Gateway
+# Also creates a role with full EC2 permissions to create/modify above and more
+# The following are steps for connecting to EC2 instance from local PC using SSH/Terminal
+# Install Java, Jenkins, Docker, Terraform
 sudo su -
 
 cd Downloads
