@@ -1,6 +1,7 @@
 #------------------------------------------------------------
 # providers.tf
 #------------------------------------------------------------
+# Specify the provider
 terraform {
   required_providers {
     aws = {
@@ -9,6 +10,8 @@ terraform {
     }
   }
 }
-#provider "aws" {
-#  region = "us-east-2"  
-#}
+
+# Specify the provider and region
+provider "aws" {
+  region = var.aws_region
+}

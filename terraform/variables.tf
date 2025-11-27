@@ -1,3 +1,6 @@
+#------------------------------------------------------------
+# variables.tf
+#------------------------------------------------------------
 variable "aws_region" {
   description = "AWS region to launch resources in"
   default     = "us-east-2"
@@ -5,8 +8,8 @@ variable "aws_region" {
 
 variable "instance_type" {
   description = "EC2 instance type"
-//  default     = "t3.large"
-  default     = "t2.micro"
+  default     = "t3.large"
+//  default     = "t2.micro"
 }
 
 variable "ami_id" {
