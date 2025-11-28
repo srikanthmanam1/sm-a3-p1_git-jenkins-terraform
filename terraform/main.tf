@@ -92,114 +92,6 @@ resource "aws_security_group" "allow_ssh" {
   }
 }
 
-###############################
-# IAM Role
-###############################
-resource "aws_iam_role" "ec2_role" {
-  name = "sm-ec2-create-role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [{
-      Action    = "sts:AssumeRole"
-      Effect    = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-  })
-}
-
-###############################
-# IAM Policy (EC2 + VPC Create)
-###############################
-#resource "aws_iam_policy" "ec2_create_policy" {
-#  name        = "sm-ec2-create-policy"
-#  description = "Allow EC2 instance to create/manage EC2 resources including VPC, subnets, IGW, route t>
-
-#  policy = jsonencode({
-#    Version = "2012-10-17"
-#    Statement = [
-      # ---- EC2 Permissions ----
-#      {
-#        Effect = "Allow"
-#        Action = [
-#          "ec2:RunInstances",
-#          "ec2:TerminateInstances",
-#          "ec2:DescribeInstances",
-#          "ec2:CreateTags",
-#          "ec2:DescribeInstanceTypes",
-#          "ec2:DescribeImages"
-#        ]
-#        Resource = "*"
-#      },
-
-      # ---- VPC / Subnet / IGW / Route Table Permissions ----
-#      {
-#        Effect = "Allow"
-#        Action = [
-#          "ec2:CreateVpc",
-#          "ec2:DeleteVpc",
-#          "ec2:ModifyVpcAttribute",
-#          "ec2:DescribeVpcs",
-
-#          "ec2:CreateSubnet",
-#          "ec2:DeleteSubnet",
-#          "ec2:DescribeSubnets",
-
-#          "ec2:CreateInternetGateway",
-#          "ec2:AttachInternetGateway",
-#          "ec2:DetachInternetGateway",
-#          "ec2:DeleteInternetGateway",
-#          "ec2:DescribeInternetGateways",
-
-#          "ec2:CreateRouteTable",
-#          "ec2:DeleteRouteTable",
-#          "ec2:AssociateRouteTable",
-#          "ec2:DisassociateRouteTable",
-#          "ec2:DescribeRouteTables",
-
-#          "ec2:CreateRoute",
-#          "ec2:ReplaceRoute",
-#          "ec2:DeleteRoute"
-#        ]
-#        Resource = "*"
-#      }
-#    ]
-#  })
-#}
-
-resource "aws_iam_policy" "ec2_create_policy" {
-  name        = "sm-ec2-create-policy"
-  description = "Full EC2 access"
-  policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Effect = "Allow"
-        Action = "ec2:*"
-        Resource = "*"
-      }
-    ]
-  })
-}
-
-###############################
-# Attach Policy to Role
-###############################
-resource "aws_iam_role_policy_attachment" "attach_ec2_create" {
-  role       = aws_iam_role.ec2_role.name
-  policy_arn = aws_iam_policy.ec2_create_policy.arn
-}
-
-###############################
-# Instance Profile
-###############################
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "sm-ec2-create-profile"
-  role = aws_iam_role.ec2_role.name
-}
-
 # Create an EC2 instance
 resource "aws_instance" "web" {
   ami           = var.ami_id
@@ -207,13 +99,8 @@ resource "aws_instance" "web" {
   subnet_id     = aws_subnet.main.id
   vpc_security_group_ids = [aws_security_group.allow_ssh.id]
   #associate_public_ip_address = true  # <--- Ensures a public IP is assigned for instance. Overrides subnet setting
-  iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
 
-  key_name      = var.key_name
-  #user_data = file("sm0_update.sh")
   tags = {
     Name = "sm-tf-ec2"
   }
 }
-#https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_manage_delete.html
-#https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_manage-delete-cli.html
