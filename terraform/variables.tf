@@ -8,8 +8,8 @@ variable "aws_region" {
 
 variable "instance_type" {
   description = "EC2 instance type"
-  default     = "t3.large"
-//  default     = "t2.micro"
+//  default     = "t3.large"
+  default     = "t2.micro"
 }
 
 variable "ami_id" {
@@ -17,7 +17,7 @@ variable "ami_id" {
   default     = "ami-0c5ddb3560e768732" # Ubuntu 22.04 (us-east-2)
 }
 
-variable "key_name" {
-  description = "Name of the existing AWS key pair"
-  type        = string
-}
+#variable "key_name" {
+#  description = "Name of the existing AWS key pair"
+#  type        = string
+#}
