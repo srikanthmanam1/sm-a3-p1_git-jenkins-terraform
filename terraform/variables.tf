@@ -16,8 +16,3 @@ variable "ami_id" {
   description = "Ubuntu 22.04"
   default     = "ami-0c5ddb3560e768732" # Ubuntu 22.04 (us-east-2)
 }
-
-variable "key_name" {
-  description = "Name of the existing AWS key pair"
-  type        = string
-}
