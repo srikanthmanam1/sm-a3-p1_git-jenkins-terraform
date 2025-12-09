@@ -1,14 +1,14 @@
 variable "mod_instance_name" {
-  description = "Mod EC2 instance Tag name"
+  description = "Mod EC2_x instance Tag name"
   type        = string
-  default     = "Mod_EC2_P1"
+  default     = "Mod_EC2_P2"
 }
 
 variable "mod_instance_type" {
-  description = "Mod EC2 instance type"
+  description = "Mod EC2_x instance type"
   type        = string
   #default     = "t2.micro"
-  default     = "t2.medium"
+  default     = "t3.medium"
 }
 
 variable "mod_ami_id" {
